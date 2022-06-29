@@ -1,0 +1,27 @@
+.meet-content{
+    width: 100%;
+}
+
+.item-avatar {
+    width: 80% !important;
+    height: 80% !important;
+    max-width: 80% !important; //any size
+    max-height: 80% !important; //any size
+    margin-top: 3px;
+}
+
+.round{
+    border-radius: 50%;
+}
+
+ion-buttons {
+    width: 100%;
+    border-radius: 25px;
+}
+
+ion-grid {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    padding: 53px;
+}

@@ -1,0 +1,50 @@
+<ion-content>
+  <ion-row class="meet-content ion-align-items-center">
+    <ion-col size="2">
+      <ion-menu-button color="dark"></ion-menu-button>
+    </ion-col>
+    <ion-col size="8" class="ion-text-center">
+      <ion-label color="dark">Meet</ion-label>
+    </ion-col>
+    <ion-col size="2">
+      <ion-avatar tappable class="item-avatar">
+        <img
+          src="https://miro.medium.com/fit/c/110/110/1*wb8NAQ8o9RnyHzv9uUQdPA.jpeg"
+          alt="profile picture"
+        />
+      </ion-avatar>
+    </ion-col>
+  </ion-row>
+
+  <!-- Meeting Buttons -->
+  <ion-row class="ion-justify-content-center ion-margin-top">
+    <ion-button color="secondary" fill="solid" size="medium" shape="round"
+      >New meeting</ion-button
+    >
+    <ion-button color="secondary" fill="outline" size="medium" shape="round"
+      >Join with a code</ion-button
+    >
+  </ion-row>
+
+  <!-- Default Refresher -->
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+  <ion-grid class="ion-justify-content-center ion-margin-top">
+    <ion-row class="ion-justify-content-center">
+      <img class="round"
+        src="./assets/logo/meet.png"
+        alt="Meeting image"
+      />
+    </ion-row>
+    <ion-row class="ion-justify-content-center">
+      <h1 class="ion-text-wrap ion-text-center">Get a link that you can share</h1>
+    </ion-row>
+    <ion-row class="ion-justify-content-center">
+      <p class="ion-text-wrap ion-text-center">
+        Tap <strong>New meeting</strong> to get a link that you can send to
+        people that you want to meet with.
+      </p>
+    </ion-row>
+  </ion-grid>
+</ion-content>

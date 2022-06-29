@@ -15,11 +15,18 @@
         </ion-list>
 
         <ion-list id="labels-list">
-          <ion-list-header>Labels</ion-list-header>
+          <ion-list-header>All labels</ion-list-header>
+          <ion-item *ngFor="let l of labels" lines="none" lines="none" detail="false" routerLinkActive="selected">
+            <ion-icon slot="start" [ios]="l.icon + '-outline'" [md]="l.icon + '-sharp'"></ion-icon>
+            <ion-label>{{ l.title }}</ion-label>
+          </ion-item>
+        </ion-list>
 
-          <ion-item *ngFor="let label of labels" lines="none">
-            <ion-icon slot="start" ios="bookmark-outline" md="bookmark-sharp"></ion-icon>
-            <ion-label>{{ label }}</ion-label>
+        <ion-list id="app-list">
+          <ion-list-header>Google apps</ion-list-header>
+          <ion-item *ngFor="let a of apps" lines="none" lines="none" detail="false" routerLinkActive="selected">
+            <ion-icon slot="start" [ios]="a.icon + '-outline'" [md]="a.icon + '-sharp'"></ion-icon>
+            <ion-label>{{ a.title }}</ion-label>
           </ion-item>
         </ion-list>
       </ion-content>
