@@ -36,13 +36,13 @@ export class MailService {
   getEmailsByCategory(category: string): Observable<IMail[]> {
     switch (category) {
       case CATEGORY.ALL:
-          return this.getAllEmails();
+          return this.getEmailsOfCategory();
       case CATEGORY.PRIMARY:
-          return this.getAllEmails();
+          return this.getEmailsOfCategory(CATEGORY_CODE.PRIMARY_CODE);
       case CATEGORY.PROMOTIONS:
-          return this.getAllEmails();
+          return this.getEmailsOfCategory(CATEGORY_CODE.PROMOTION_CODE);
       case CATEGORY.SOCIAL:
-          return this.getAllEmails();
+          return this.getEmailsOfCategory(CATEGORY_CODE.SOCIAL_CODE);
     
       default:
         return of([]);
@@ -82,11 +82,15 @@ export class MailService {
     );
   }
 
-  getEmailsOfCategory(category: string): Observable<IMail[]> {
-    return this.http.get<any>("./assets/dummy.data.json").pipe(
-      map((mails: IMail[]) => mails.filter(m => m.category === CATEGORY_CODE.CAT1)),
-      tap(data => console.log(data))
-    );
+  getEmailsOfCategory(category?: string): Observable<IMail[]> {
+    if(category === undefined){
+      return this.getAllEmails();
+    } else {
+      return this.http.get<any>("./assets/dummy.data.json").pipe(
+        map((mails: IMail[]) => mails.filter(m => m.category === category)),
+        tap(data => console.log(data))
+      );
+    }
   }
 
 

@@ -5,8 +5,8 @@ export enum CATEGORY {
     SOCIAL = "social",
 };
 
-export const CATEGORY_CODE = {
-    CAT1: CATEGORY.PRIMARY,
-    CAT2: CATEGORY.PROMOTIONS,
-    CAT3: CATEGORY.SOCIAL,
+export enum CATEGORY_CODE {
+    PRIMARY_CODE = "CAT1",
+    PROMOTION_CODE = "CAT2",
+    SOCIAL_CODE = "CAT3",
 } 
