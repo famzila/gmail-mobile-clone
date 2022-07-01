@@ -17,6 +17,14 @@ const routes: Routes = [
         loadChildren: () => import('../details/details.module').then(m => m.DetailsPageModule)
       },
       {
+        path: 'mail/category/:category',
+        loadChildren: () => import('../mail/mail.module').then(m => m.MailPageModule)
+      },
+      {
+        path: 'mail/type/:type',
+        loadChildren: () => import('../mail/mail.module').then(m => m.MailPageModule)
+      },
+      {
         path: 'meet',
         loadChildren: () => import('../meet/meet.module').then(m => m.MeetPageModule)
       },

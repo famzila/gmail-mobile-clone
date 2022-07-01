@@ -1,9 +1,13 @@
-import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { PopoverController } from '@ionic/angular';
-import { hashCode, intToRGB } from 'src/app/shared/utils/generators.utils';
+import { IMail } from 'src/app/shared/models/mail.model';
 import { AccountPage } from '../account/account.page';
+import { MailService } from './mail.service';
+import { hashCode, intToRGB } from 'src/app/shared/utils/generators.utils';
+import { Observable, pipe, throwError } from 'rxjs';
+import { catchError, tap } from 'rxjs/operators';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-mail',
@@ -11,30 +15,52 @@ import { AccountPage } from '../account/account.page';
   styleUrls: ['./mail.page.scss'],
 })
 export class MailPage implements OnInit {
-  emails: any[];
+  emails: IMail[];
   lastScrollTop: number = 0;
-  removeSearch : boolean = false;
+  removeSearch: boolean = false;
 
-  constructor(private http: HttpClient, private router: Router, private popOverCtr: PopoverController) { }
+  constructor(private mailService: MailService, private router: Router, private activedRoute: ActivatedRoute, private popOverCtr: PopoverController) { }
 
   ngOnInit() {
-    this.http.get<any[]>('./assets/dummy.data.json').subscribe(data => {
-      console.log(data);
-      this.emails = data.map( email => {
-          return email = { ...email,
-            color: intToRGB(hashCode(email.from))
-          }
-      })
+    this.activedRoute.paramMap.subscribe(params => {
+      if (params.has('type')) {
+        const type = params.get('type');
+        this.getEmailList(type);
+      } else if (params.has('category')) {
+        const category = params.get('category');
+        this.getEmailList(undefined, category);
+      } else {
+       this.getEmailList();
+      }
     });
   }
 
+  getEmailList(type?: string, category?: string) {
+      this.mailService.getEmailsList(type, category).subscribe(data => {
+        console.log(data);
+        this.emails = data.map(email => {
+          return email = {
+            ...email,
+            color: intToRGB(hashCode(email.from))
+          }
+        })
+      }, catchError(this.handleError));
+  }
 
-  doRefresh(event){
-    setTimeout(() => {
+  /**
+   * Refresh the email's list
+   * @param event 
+   */
+  doRefresh(event) {
+      setTimeout(() => {
       event.target.complete();
     }, 2000)
   }
 
+  /**
+   * Show account details
+   * @param event click event
+   */
   async openAccount(event) {
     const popover = await this.popOverCtr.create({
       component: AccountPage,
@@ -45,12 +71,21 @@ export class MailPage implements OnInit {
     await popover.present();
   }
 
-  openEmail(event) {
-    this.router.navigateByUrl("tabs/mail/" + event);
+  /**
+   * Handler to open email details
+   * @param id email's id
+   */
+  openEmail(mailId: string) {
+    // this.router.navigateByUrl("tabs/mail/" + event);
+    this.router.navigate(['tabs/mail', mailId]);
   }
-  
-  scrolling(event){
-    if(this.lastScrollTop < event.detail.scrollTop){
+
+  /**
+   * Show search input only when scrolling up
+   * @param event scroll event
+   */
+  scrolling(event) {
+    if (this.lastScrollTop < event.detail.scrollTop) {
       this.removeSearch = true;
     } else {
       this.removeSearch = false;
@@ -58,4 +93,20 @@ export class MailPage implements OnInit {
     this.lastScrollTop = event.detail.scrollTop;
   }
 
+
+  // Error handler
+  private handleError(error: HttpErrorResponse): Observable<any> {
+    let errorMsg = "";
+    // Client side error
+    if (error.error instanceof ErrorEvent) {
+      errorMsg = `Client error occuried: ${error.error.message}`;
+    }
+    // Server side error
+    else {
+      errorMsg = `Server error, code: ${error.status}, error message: ${error.message}`;
+    }
+
+    console.error(errorMsg);
+    return throwError(errorMsg);
+  }
 }

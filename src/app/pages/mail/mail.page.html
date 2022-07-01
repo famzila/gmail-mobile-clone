@@ -27,12 +27,12 @@
     <ion-list-header> Inbox </ion-list-header>
     <ion-item *ngFor="let email of emails" lines="none">
       <ion-row class="ion-align-items-center">
-        <ion-col size="2" (click)="openEmail($event)">
-          <div class="email-from-avatar"  [style.background]="email.color">
-            {{ email.from | slice:0:1 }}
+        <ion-col size="2" (click)="openEmail(email?.id)">
+          <div class="email-from-avatar"  [style.background]="email?.color">
+            {{ email?.from | slice:0:1 }}
           </div>
         </ion-col>
-        <ion-col size="8"(click)="openEmail($event)">
+        <ion-col size="8"(click)="openEmail(email?.id)">
           <ion-label
             class="ion-text-wrap"
             [style.font-weight]="!email.read? 'bold' : ''"

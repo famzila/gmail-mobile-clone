@@ -4,7 +4,7 @@
       <ion-content>
         <ion-list id="inbox-list">
           <ion-list-header>Inbox</ion-list-header>
-          <ion-note>hi@ionicframework.com</ion-note>
+          <ion-note>https://www.fatimaamzil.com</ion-note>
 
           <ion-menu-toggle auto-hide="false" *ngFor="let p of appPages; let i = index">
             <ion-item routerDirection="root" [routerLink]="[p.url]" lines="none" detail="false" routerLinkActive="selected">
@@ -16,17 +16,27 @@
 
         <ion-list id="labels-list">
           <ion-list-header>All labels</ion-list-header>
-          <ion-item *ngFor="let l of labels" lines="none" lines="none" detail="false" routerLinkActive="selected">
-            <ion-icon slot="start" [ios]="l.icon + '-outline'" [md]="l.icon + '-sharp'"></ion-icon>
-            <ion-label>{{ l.title }}</ion-label>
-          </ion-item>
+          <ion-menu-toggle auto-hide="false" *ngFor="let l of labels; let i = index">
+            <ion-item lines="none" lines="none" detail="false" routerLinkActive="selected" routerDirection="root" [routerLink]="[l.url]" >
+              <ion-icon slot="start" [ios]="l.icon + '-outline'" [md]="l.icon + '-sharp'"></ion-icon>
+              <ion-label>{{ l.title }}</ion-label>
+            </ion-item>
+        </ion-menu-toggle>
         </ion-list>
 
         <ion-list id="app-list">
           <ion-list-header>Google apps</ion-list-header>
-          <ion-item *ngFor="let a of apps" lines="none" lines="none" detail="false" routerLinkActive="selected">
+          <ion-item *ngFor="let a of apps" lines="none" lines="none" detail="false" (click)="presentToast()">
             <ion-icon slot="start" [ios]="a.icon + '-outline'" [md]="a.icon + '-sharp'"></ion-icon>
             <ion-label>{{ a.title }}</ion-label>
+          </ion-item>
+        </ion-list>
+
+        <ion-list id="other-list">
+          <ion-list-header>Settings</ion-list-header>
+          <ion-item *ngFor="let o of other" lines="none" lines="none" detail="false" (click)="presentToast()">
+            <ion-icon slot="start" [ios]="o.icon + '-outline'" [md]="o.icon + '-sharp'"></ion-icon>
+            <ion-label>{{ o.title }}</ion-label>
           </ion-item>
         </ion-list>
       </ion-content>
