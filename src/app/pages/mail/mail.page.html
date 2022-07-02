@@ -24,7 +24,7 @@
 
   <!-- Received emails list -->
   <ion-list>
-    <ion-list-header> Inbox </ion-list-header>
+    <ion-list-header class="list-label"> {{ listLabel }} </ion-list-header>
     <ion-item *ngFor="let email of emails" lines="none">
       <ion-row class="ion-align-items-center">
         <ion-col size="2" (click)="openEmail(email?.id)">

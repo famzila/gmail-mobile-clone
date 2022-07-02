@@ -1,7 +1,7 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, of, throwError } from 'rxjs';
-import { catchError, map, tap } from 'rxjs/operators';
+import { Observable, of } from 'rxjs';
+import { map, tap } from 'rxjs/operators';
 import { CATEGORY, CATEGORY_CODE } from 'src/app/shared/constants/categories';
 import { TYPE } from 'src/app/shared/constants/types';
 import { IMail } from 'src/app/shared/models/mail.model';

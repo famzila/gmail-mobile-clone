@@ -1,13 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { HttpErrorResponse } from '@angular/common/http';
 import { PopoverController } from '@ionic/angular';
-import { IMail } from 'src/app/shared/models/mail.model';
-import { AccountPage } from '../account/account.page';
+import { Observable, throwError } from 'rxjs';
+import { catchError } from 'rxjs/operators';
+
 import { MailService } from './mail.service';
 import { hashCode, intToRGB } from 'src/app/shared/utils/generators.utils';
-import { Observable, pipe, throwError } from 'rxjs';
-import { catchError, tap } from 'rxjs/operators';
-import { HttpErrorResponse } from '@angular/common/http';
+import { AccountPage } from '../account/account.page';
+import { CATEGORY } from 'src/app/shared/constants/categories';
+import { IMail } from 'src/app/shared/models/mail.model';
+
 
 @Component({
   selector: 'app-mail',
@@ -15,12 +18,19 @@ import { HttpErrorResponse } from '@angular/common/http';
   styleUrls: ['./mail.page.scss'],
 })
 export class MailPage implements OnInit {
+  listLabel: string = "All inboxes";
   emails: IMail[];
   lastScrollTop: number = 0;
   removeSearch: boolean = false;
 
-  constructor(private mailService: MailService, private router: Router, private activedRoute: ActivatedRoute, private popOverCtr: PopoverController) { }
+  constructor(private mailService: MailService, 
+              private router: Router, 
+              private activedRoute: ActivatedRoute, 
+              private popOverCtr: PopoverController) { }
 
+  /**
+   * @inheritdoc
+   */
   ngOnInit() {
     this.activedRoute.paramMap.subscribe(params => {
       if (params.has('type')) {
@@ -28,23 +38,29 @@ export class MailPage implements OnInit {
         this.getEmailList(type);
       } else if (params.has('category')) {
         const category = params.get('category');
+        this.getListLabel(category);
         this.getEmailList(undefined, category);
       } else {
-       this.getEmailList();
+        this.getEmailList();
       }
     });
   }
 
+  /**
+   * Get emails list
+   * @param type by type Starred, important, spam, ...etc
+   * @param category by category All, Primary, Promotions or Social
+   */
   getEmailList(type?: string, category?: string) {
-      this.mailService.getEmailsList(type, category).subscribe(data => {
-        console.log(data);
-        this.emails = data.map(email => {
-          return email = {
-            ...email,
-            color: intToRGB(hashCode(email.from))
-          }
-        })
-      }, catchError(this.handleError));
+    this.mailService.getEmailsList(type, category).subscribe(data => {
+      console.log(data);
+      this.emails = data.map(email => {
+        return email = {
+          ...email,
+          color: intToRGB(hashCode(email.from))
+        }
+      })
+    }, catchError(this.handleError));
   }
 
   /**
@@ -52,7 +68,7 @@ export class MailPage implements OnInit {
    * @param event 
    */
   doRefresh(event) {
-      setTimeout(() => {
+    setTimeout(() => {
       event.target.complete();
     }, 2000)
   }
@@ -65,7 +81,7 @@ export class MailPage implements OnInit {
     const popover = await this.popOverCtr.create({
       component: AccountPage,
       event: event,
-      cssClass: 'custom-popover'
+      cssClass: 'account-popover'
     });
 
     await popover.present();
@@ -93,8 +109,36 @@ export class MailPage implements OnInit {
     this.lastScrollTop = event.detail.scrollTop;
   }
 
+  /**
+   * Update the list label
+   * @param category set label with the chosen label
+   */
+  private getListLabel(category: string) {
+    switch (category) {
+      case CATEGORY.ALL:
+        this.listLabel = "All inboxes";
+        break;
+      case CATEGORY.PRIMARY:
+        this.listLabel = "Primary";
+        break;
+      case CATEGORY.PROMOTIONS:
+        this.listLabel = "Promotions";
+        break;
+      case CATEGORY.SOCIAL:
+        this.listLabel = "Social";
+        break;
 
-  // Error handler
+      default:
+        break;
+    }
+  }
+
+
+  /**
+   * Error handler
+   * @param error : returned error
+   * @returns returns the error message
+   */
   private handleError(error: HttpErrorResponse): Observable<any> {
     let errorMsg = "";
     // Client side error
