@@ -48,3 +48,15 @@ ion-list {
 ion-row.ion-align-items-center {
     width: 100%;
 }
+
+.round{
+    border-radius: 25px;
+}
+
+ion-grid {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    padding: 90px;
+    height: 100%;
+}

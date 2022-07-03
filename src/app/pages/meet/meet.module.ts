@@ -7,13 +7,15 @@ import { IonicModule } from '@ionic/angular';
 import { MeetPageRoutingModule } from './meet-routing.module';
 
 import { MeetPage } from './meet.page';
+import { AccountPageModule } from '../account/account.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    MeetPageRoutingModule
+    MeetPageRoutingModule,
+    AccountPageModule
   ],
   declarations: [MeetPage]
 })

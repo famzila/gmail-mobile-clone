@@ -37,30 +37,14 @@
         width: 340px;
     }
 }
-
-// .account-popover .popover-arrow {
-//     display: none;
-//     position: unset;
-// }
-
-// .custom-popover .popover-content {
-//     position: initial;
-//     width: 340px;
-// }
-
-// ion-popover{
-//     ion-backdrop {
-//         opacity: 0.5 !important;
-//     }
-//     .popover-wrapper {
-//         .popover-content {
-//             width:100vw;
-//             max-width:800px;
-//             position: initial !important;
-//             background-color: black;
-//         }
-//         .popover-arrow {
-//             display: none;
-//         }
-//     }
-// }
+.popover-content {
+    display: flex;
+    position: initial;
+    flex-direction: column;
+    width: 326px;
+    max-width: 400px;
+    height: 239px;
+    overflow: auto;
+    z-index: 10;
+    padding: 10px;
+}

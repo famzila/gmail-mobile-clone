@@ -55,12 +55,13 @@ export class MailService {
           return this.getStaredEmails();
       case TYPE.IMPORTANT:
           return this.getImportantEmails();
-      case TYPE.SPAM:
-          return this.getStaredEmails();
-      case TYPE.DRAFTS:
-          return this.getStaredEmails();
-      case TYPE.TRASH:
-          this.getStaredEmails();
+      // TO-DO: implement other types
+      // case TYPE.SPAM:
+      //     return this.getStaredEmails();
+      // case TYPE.DRAFTS:
+      //     return this.getStaredEmails();
+      // case TYPE.TRASH:
+      //     this.getStaredEmails();
     
       default:
         return of([]);

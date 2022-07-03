@@ -1,6 +1,14 @@
-<ion-content class="search-overlay" [scrollEvents]="true" (ionScroll)="scrolling($event)">
+<ion-content
+  class="search-overlay"
+  [scrollEvents]="true"
+  (ionScroll)="scrolling($event)"
+>
   <!-- Inbux header with search input and avatar -->
-  <ion-row slot="fixed" class="ion-align-items-center" [style.display]="removeSearch ? 'none' : 'flex'">
+  <ion-row
+    slot="fixed"
+    class="ion-align-items-center"
+    [style.display]="removeSearch ? 'none' : 'flex'"
+  >
     <ion-col size="2">
       <ion-menu-button color="dark"></ion-menu-button>
     </ion-col>
@@ -23,16 +31,16 @@
   </ion-refresher>
 
   <!-- Received emails list -->
-  <ion-list>
+  <ion-list *ngIf="!(emails?.length === 0); else empty">
     <ion-list-header class="list-label"> {{ listLabel }} </ion-list-header>
     <ion-item *ngFor="let email of emails" lines="none">
       <ion-row class="ion-align-items-center">
         <ion-col size="2" (click)="openEmail(email?.id)">
-          <div class="email-from-avatar"  [style.background]="email?.color">
+          <div class="email-from-avatar" [style.background]="email?.color">
             {{ email?.from | slice:0:1 }}
           </div>
         </ion-col>
-        <ion-col size="8"(click)="openEmail(email?.id)">
+        <ion-col size="8" (click)="openEmail(email?.id)">
           <ion-label
             class="ion-text-wrap"
             [style.font-weight]="!email.read? 'bold' : ''"
@@ -57,4 +65,17 @@
       </ion-row>
     </ion-item>
   </ion-list>
+
+  <ng-template #empty>
+    <ion-grid class="ion-justify-content-center ion-margin-top">
+      <ion-row class="ion-justify-content-center">
+        <img class="round" src="./assets/img/zero-inbox.jpg" alt="Meeting image" />
+      </ion-row>
+      <ion-row class="ion-justify-content-center">
+        <h1 class="ion-text-wrap ion-text-center">
+          No emails here
+        </h1>
+      </ion-row>
+    </ion-grid>
+  </ng-template>
 </ion-content>

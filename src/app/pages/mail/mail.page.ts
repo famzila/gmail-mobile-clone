@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
-import { PopoverController } from '@ionic/angular';
+import { LoadingController, PopoverController } from '@ionic/angular';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 
@@ -23,16 +23,18 @@ export class MailPage implements OnInit {
   lastScrollTop: number = 0;
   removeSearch: boolean = false;
 
-  constructor(private mailService: MailService, 
-              private router: Router, 
-              private activedRoute: ActivatedRoute, 
-              private popOverCtr: PopoverController) { }
+  constructor(private mailService: MailService,
+    private router: Router,
+    private activedRoute: ActivatedRoute,
+    private popOverCtr: PopoverController,
+    private loadingCtr: LoadingController) { }
 
   /**
    * @inheritdoc
    */
   ngOnInit() {
     this.activedRoute.paramMap.subscribe(params => {
+
       if (params.has('type')) {
         const type = params.get('type');
         this.getEmailList(type);
@@ -51,15 +53,21 @@ export class MailPage implements OnInit {
    * @param type by type Starred, important, spam, ...etc
    * @param category by category All, Primary, Promotions or Social
    */
-  getEmailList(type?: string, category?: string) {
+  async getEmailList(type?: string, category?: string) {
+    const loading = await this.loadingCtr.create({
+      message: 'Loading...'
+    });
+
+    loading.present();
     this.mailService.getEmailsList(type, category).subscribe(data => {
       console.log(data);
-      this.emails = data.map(email => {
-        return email = {
-          ...email,
-          color: intToRGB(hashCode(email.from))
-        }
-      })
+      loading.dismiss();
+        this.emails = data.map(email => {
+          return email = {
+            ...email,
+            color: intToRGB(hashCode(email.from))
+          }
+        });
     }, catchError(this.handleError));
   }
 
@@ -107,6 +115,14 @@ export class MailPage implements OnInit {
       this.removeSearch = false;
     }
     this.lastScrollTop = event.detail.scrollTop;
+  }
+
+  async showLoading() {
+    const loading = await this.loadingCtr.create({
+      message: 'Loading...'
+    });
+
+    loading.present();
   }
 
   /**

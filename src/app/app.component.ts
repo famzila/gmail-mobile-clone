@@ -37,14 +37,17 @@ export class AppComponent {
     { title: 'Help and feedback', url: '/tabs/mail', icon: 'help-circle' },
   ];
 
-  constructor( private toastCtr: ToastController) {}
+  constructor(private toastCtr: ToastController) { }
 
- async presentToast() {
+  /**
+   * Display Toast for non implemented features
+   */
+  async presentToast() {
     const toast = await this.toastCtr.create({
       message: "Not implemented",
       duration: 2000
     });
     toast.present();
- }
+  }
 
 }
