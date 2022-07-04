@@ -1,5 +1,7 @@
 {
   "name": "gmail-clone",
-  "integrations": {},
+  "integrations": {
+    "cordova": {}
+  },
   "type": "angular"
 }

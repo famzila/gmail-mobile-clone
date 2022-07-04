@@ -60,7 +60,6 @@ export class MailPage implements OnInit {
 
     loading.present();
     this.mailService.getEmailsList(type, category).subscribe(data => {
-      console.log(data);
       loading.dismiss();
         this.emails = data.map(email => {
           return email = {
@@ -157,7 +156,6 @@ export class MailPage implements OnInit {
       errorMsg = `Server error, code: ${error.status}, error message: ${error.message}`;
     }
 
-    console.error(errorMsg);
     return throwError(errorMsg);
   }
 }

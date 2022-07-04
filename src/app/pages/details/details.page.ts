@@ -28,7 +28,6 @@ export class DetailsPage implements OnInit {
         if (emailId) {
           this.emailService.getEmailById(emailId).subscribe(email => {
             this.selectedEmail = { ...email, color: intToRGB(hashCode(email.from)) };
-            console.log(this.selectedEmail);
           })
         }
       }
