@@ -1,4 +1,7 @@
 
+/**
+ * Generates a random hash code
+ */
 export function hashCode(str) {
     let hash = 0;
     for (let i = 0; i < str.length; i++) {
@@ -6,7 +9,10 @@ export function hashCode(str) {
     }
     return hash;
 }
-// move to utils service
+
+/**
+ * Convert hash code to RGB
+ */
 export function intToRGB(i) {
     let c = (i & 0x00FFFFFF)
         .toString(16)

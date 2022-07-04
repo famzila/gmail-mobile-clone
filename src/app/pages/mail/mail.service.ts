@@ -4,14 +4,14 @@ import { Observable, of } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 import { CATEGORY, CATEGORY_CODE } from 'src/app/shared/constants/categories';
 import { TYPE } from 'src/app/shared/constants/types';
-import { IMail } from 'src/app/shared/models/mail.model';
+import { IEmail } from 'src/app/shared/models/mail.model';
 
 
 
 @Injectable({
   providedIn: 'root'
 })
-export class MailService {
+export class EmailService {
 
   constructor(private http: HttpClient) { }
 
@@ -22,7 +22,7 @@ export class MailService {
    * @param category category of the email
    * @returns list of emails based on type or category if provided
    */
-  getEmailsList(type?: string, category?: string): Observable<IMail[]> {
+  getEmailsList(type?: string, category?: string): Observable<IEmail[]> {
 
       if(type !== undefined){
         return this.getEmailsByType(type);
@@ -37,18 +37,27 @@ export class MailService {
   /**
    * Get all inboxes without filter
    */
-  getAllEmails(): Observable<IMail[]>{
-    return this.http.get<IMail[]>("./assets/dummy.data.json");
+  getAllEmails(): Observable<IEmail[]>{
+    return this.http.get<IEmail[]>("./assets/dummy.data.json");
   }
 
-  getEmailById(emailId: string): Observable<IMail>{
-    return this.http.get<IMail[]>("./assets/dummy.data.json").pipe(
+  /**
+   * Get email by ID
+   * @param emailId email id
+   * @returns returns the email data
+   */
+  getEmailById(emailId: string): Observable<IEmail>{
+    return this.http.get<IEmail[]>("./assets/dummy.data.json").pipe(
       map(emails => emails.find(e => e.id = emailId))
     )
   }
 
 
-  getEmailsByCategory(category: string): Observable<IMail[]> {
+  /**
+   * Get emails list by category
+   * @param category the selected category
+   */
+  getEmailsByCategory(category: string): Observable<IEmail[]> {
     switch (category) {
       case CATEGORY.ALL:
           return this.getEmailsOfCategory();
@@ -64,7 +73,12 @@ export class MailService {
     }
   }
 
-  getEmailsByType(type: string): Observable<IMail[]> {
+  /**
+   * Emails list by type
+   * @param type email type: starred, important, trash, ..etc
+   * @returns returns emails list
+   */
+  getEmailsByType(type: string): Observable<IEmail[]> {
     switch (type) {
       case TYPE.STARRED:
           return this.getStaredEmails();
@@ -83,39 +97,40 @@ export class MailService {
     }
   }
 
-  
-  getStaredEmails(): Observable<IMail[]> {
+  /**
+   * Get starred emails only
+   */
+  getStaredEmails(): Observable<IEmail[]> {
     return this.http.get<any>("./assets/dummy.data.json").pipe(
-      map((mails: IMail[]) => mails.filter(m => m.star === true)),
+      map((emails: IEmail[]) => emails.filter(m => m.star === true)),
       tap(data => console.log(data))
     );
   }
 
-  getImportantEmails(): Observable<IMail[]> {
+  /**
+   * Get important emails only
+   */
+  getImportantEmails(): Observable<IEmail[]> {
     return this.http.get<any>("./assets/dummy.data.json").pipe(
-      map((mails: IMail[]) => mails.filter(m => m.important === true)),
+      map((emails: IEmail[]) => emails.filter(m => m.important === true)),
       tap(data => console.log(data))
     );
   }
 
-  getEmailsOfCategory(category?: string): Observable<IMail[]> {
+  /**
+   * Get emails of given category
+   * @param category name
+   * @returns emails list 
+   */
+  getEmailsOfCategory(category?: string): Observable<IEmail[]> {
     if(category === undefined){
       return this.getAllEmails();
     } else {
       return this.http.get<any>("./assets/dummy.data.json").pipe(
-        map((mails: IMail[]) => mails.filter(m => m.category === category)),
+        map((emails: IEmail[]) => emails.filter(m => m.category === category)),
         tap(data => console.log(data))
       );
     }
   }
-
-
-  
-  searchEmails(): Observable<IMail[]> {
-    return of([]);
-  }
-
-
-
 
 }

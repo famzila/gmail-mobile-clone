@@ -28,9 +28,9 @@ describe('AppComponent', () => {
     fixture.detectChanges();
     const app = fixture.nativeElement;
     const menuItems = app.querySelectorAll('ion-label');
-    expect(menuItems.length).toEqual(12);
-    expect(menuItems[0].textContent).toContain('Inbox');
-    expect(menuItems[1].textContent).toContain('Outbox');
+    expect(menuItems.length).toEqual(20);
+    expect(menuItems[0].textContent).toContain('All inboxes');
+    expect(menuItems[1].textContent).toContain('Primary');
   }));
 
   it('should have urls', waitForAsync(() => {
@@ -38,9 +38,9 @@ describe('AppComponent', () => {
     fixture.detectChanges();
     const app = fixture.nativeElement;
     const menuItems = app.querySelectorAll('ion-item');
-    expect(menuItems.length).toEqual(12);
-    expect(menuItems[0].getAttribute('ng-reflect-router-link')).toEqual('/folder/Inbox');
-    expect(menuItems[1].getAttribute('ng-reflect-router-link')).toEqual('/folder/Outbox');
+    expect(menuItems.length).toEqual(20);
+    expect(menuItems[0].getAttribute('ng-reflect-router-link')).toEqual('/tabs/mail/category/all');
+    expect(menuItems[1].getAttribute('ng-reflect-router-link')).toEqual('/tabs/mail/category/primary');
   }));
 
 });

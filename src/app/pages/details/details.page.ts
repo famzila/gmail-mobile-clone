@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ToastController } from '@ionic/angular';
-import { IMail } from 'src/app/shared/models/mail.model';
+import { IEmail } from 'src/app/shared/models/mail.model';
 import { hashCode, intToRGB } from 'src/app/shared/utils/generators.utils';
-import { MailService } from '../mail/mail.service';
+import { EmailService } from '../mail/mail.service';
 
 @Component({
   selector: 'app-details',
@@ -11,10 +11,10 @@ import { MailService } from '../mail/mail.service';
   styleUrls: ['./details.page.scss'],
 })
 export class DetailsPage implements OnInit {
-  selectedEmail: IMail = undefined;
+  selectedEmail: IEmail = undefined;
 
   constructor(private activatedRoute: ActivatedRoute,
-              private emailService: MailService, 
+              private emailService: EmailService, 
               private toastCtr: ToastController) { }
 
   /**

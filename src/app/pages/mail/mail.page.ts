@@ -5,11 +5,11 @@ import { LoadingController, PopoverController } from '@ionic/angular';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 
-import { MailService } from './mail.service';
+import { EmailService } from './mail.service';
 import { hashCode, intToRGB } from 'src/app/shared/utils/generators.utils';
 import { AccountPage } from '../account/account.page';
 import { CATEGORY } from 'src/app/shared/constants/categories';
-import { IMail } from 'src/app/shared/models/mail.model';
+import { IEmail } from 'src/app/shared/models/mail.model';
 
 
 @Component({
@@ -19,11 +19,11 @@ import { IMail } from 'src/app/shared/models/mail.model';
 })
 export class MailPage implements OnInit {
   listLabel: string = "All inboxes";
-  emails: IMail[];
+  emails: IEmail[];
   lastScrollTop: number = 0;
   removeSearch: boolean = false;
 
-  constructor(private mailService: MailService,
+  constructor(private mailService: EmailService,
     private router: Router,
     private activedRoute: ActivatedRoute,
     private popOverCtr: PopoverController,
