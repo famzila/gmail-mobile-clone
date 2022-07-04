@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { HttpTestingController, HttpClientTestingModule } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
+import { of } from 'rxjs';
 
 import { EmailService } from './mail.service';
 
@@ -69,7 +70,7 @@ describe('MailServiceService', () => {
 
     const req = httpTestingController.expectOne('./assets/dummy.data.json');
       expect(req.request.method).toEqual('GET');
-      req.flush({testData});
+      req.flush(testData);
       httpTestingController.verify();
   });
 
@@ -80,7 +81,7 @@ describe('MailServiceService', () => {
 
     const req = httpTestingController.expectOne('./assets/dummy.data.json');
       expect(req.request.method).toEqual('GET');
-      req.flush({testData});
+      req.flush(testData);
       httpTestingController.verify();
   });
 
