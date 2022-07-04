@@ -1,7 +1,11 @@
 <ion-header class="ion-padding">
   <ion-toolbar color="light">
     <ion-buttons slot="start">
-      <ion-back-button defaultHref="/tabs/mail" text="" icon="arrow-back"></ion-back-button>
+      <ion-back-button
+        defaultHref="/tabs/mail"
+        text=""
+        icon="arrow-back"
+      ></ion-back-button>
     </ion-buttons>
     <ion-buttons slot="primary">
       <ion-button (click)="presentToast()"
@@ -45,7 +49,11 @@
   </ion-row>
   <ion-row class="ion-align-items-center">
     <ion-col size="1">
-      <div class="email-from-avatar" [style.background]="selectedEmail.color" (click)="presentToast()">
+      <div
+        class="email-from-avatar"
+        [style.background]="selectedEmail.color"
+        (click)="presentToast()"
+      >
         {{ selectedEmail.from | slice:0:1 }}
       </div>
     </ion-col>
@@ -70,22 +78,44 @@
       ></ion-icon>
     </ion-col>
   </ion-row>
-  <ion-row> 
+  <ion-row>
     <ion-text color="dark ion-padding email-content">
       <p>{{ selectedEmail.content }}</p>
     </ion-text>
   </ion-row>
-  <ion-row class="ion-justify-content-around ion-margin-top"> 
+  <ion-row class="ion-justify-content-around ion-margin-top">
     <ion-buttons>
-        <ion-button color="medium" fill="outline" size="medium" shape="round" (click)="presentToast()" 
-          ><ion-icon name="return-up-back"></ion-icon>Reply</ion-button
-        >
-        <ion-button color="medium" fill="outline" size="medium" shape="round" (click)="presentToast()"
-          ><ion-icon name="arrow-back-circle"></ion-icon>Reply all</ion-button
-        >
-        <ion-button color="medium" fill="outline" size="medium" shape="round" (click)="presentToast()"
-          ><ion-icon name="return-up-forward"></ion-icon>Forward</ion-button
-        >
+      <ion-button
+        color="medium"
+        fill="outline"
+        size="medium"
+        shape="round"
+        (click)="presentToast()"
+        ><div class="padding">
+          <ion-icon name="return-up-back"></ion-icon>Reply
+        </div></ion-button
+      >
+      <ion-button
+        color="medium"
+        fill="outline"
+        size="medium"
+        shape="round"
+        (click)="presentToast()"
+        ><div class="padding">
+          <ion-icon name="arrow-back-circle"></ion-icon>Reply all
+        </div></ion-button
+      >
+      <ion-button
+        color="medium"
+        fill="outline"
+        size="medium"
+        shape="round"
+        (click)="presentToast()"
+      >
+        <div class="padding">
+          <ion-icon name="return-up-forward"></ion-icon>Forward
+        </div></ion-button
+      >
     </ion-buttons>
   </ion-row>
 </ion-content>
