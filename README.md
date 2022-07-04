@@ -5,15 +5,15 @@
 ![Jasmine](https://img.shields.io/badge/-Jasmine-%238A4182?style=for-the-badge&logo=Jasmine&logoColor=white)
 ![Ionic](https://img.shields.io/badge/Ionic-3880FF?style=for-the-badge&logo=ionic&logoColor=white)
 
-
+---
 
 # Mini Gmail Clone Mobile App
 App designed for mobile version, you can open the app on the browser in mobile mode.
-## The app looks like (give it a ⭐ if you like it)
+### The app looks like (give it a ⭐ if you like it)
 ![Mini Gmail Clone Mobile App](src/assets/img/app-front.png)
 
-## Demo
-
+### Demo
+![App demo](src/assets/demo/demo.gif)
 ## Gmail clone with basic functionnalities
 - [x] (Menu)
 - [x] (Tabs: emails and meet)
@@ -22,8 +22,7 @@ App designed for mobile version, you can open the app on the browser in mobile m
 - [x] (Email details)
 - [ ] (Much more can be implemented, feel free to contribute ^^)
 
-
-
+---
 
 ## Requirements
 - NodeJS
