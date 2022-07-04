@@ -16,6 +16,12 @@ export class MailService {
   constructor(private http: HttpClient) { }
 
 
+  /**
+   * Get email by type if exist or category
+   * @param type type of the email
+   * @param category category of the email
+   * @returns list of emails based on type or category if provided
+   */
   getEmailsList(type?: string, category?: string): Observable<IMail[]> {
 
       if(type !== undefined){
@@ -28,8 +34,17 @@ export class MailService {
       return this.getAllEmails();
   }
 
+  /**
+   * Get all inboxes without filter
+   */
   getAllEmails(): Observable<IMail[]>{
-    return this.http.get<any>("./assets/dummy.data.json");
+    return this.http.get<IMail[]>("./assets/dummy.data.json");
+  }
+
+  getEmailById(emailId: string): Observable<IMail>{
+    return this.http.get<IMail[]>("./assets/dummy.data.json").pipe(
+      map(emails => emails.find(e => e.id = emailId))
+    )
   }
 
 

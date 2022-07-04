@@ -1,0 +1,38 @@
+ion-header {
+    background-color: #f4f5f8 !important;
+}
+
+ion-toolbar:last-of-type {
+    --border-width: 0 0 0;
+}
+
+ion-chip {
+    font-size: 9px;
+    width: 36px;
+    height: 16px;
+    padding: 7px;
+}
+
+ion-button{
+    font-size: "14px";
+}
+
+.date {
+    font-size: 0.7em;
+}
+
+.email-from-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #efe7e7;
+    font-weight: 500;
+    text-transform: capitalize;
+}
+
+.email-content{
+    padding-top: 0;
+}

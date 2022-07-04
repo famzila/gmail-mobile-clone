@@ -1,5 +1,6 @@
 export interface IMail{
     id: string;
+    title: string;
     from: string;
     read: boolean;
     content: string;

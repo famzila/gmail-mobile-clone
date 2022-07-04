@@ -100,7 +100,6 @@ export class MailPage implements OnInit {
    * @param id email's id
    */
   openEmail(mailId: string) {
-    // this.router.navigateByUrl("tabs/mail/" + event);
     this.router.navigate(['tabs/mail', mailId]);
   }
 
@@ -115,14 +114,6 @@ export class MailPage implements OnInit {
       this.removeSearch = false;
     }
     this.lastScrollTop = event.detail.scrollTop;
-  }
-
-  async showLoading() {
-    const loading = await this.loadingCtr.create({
-      message: 'Loading...'
-    });
-
-    loading.present();
   }
 
   /**
